@@ -1,0 +1,6 @@
+[package]
+name = "pathing_redux"
+version = "0.1.0"
+authors = ["crossedxd <sean.hofstadter@gmail.com>"]
+
+[dependencies]
