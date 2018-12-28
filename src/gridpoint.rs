@@ -9,18 +9,11 @@ pub struct GridPoint {
 
 impl GridPoint {
     pub fn new(x: i32, y: i32, key: char) -> GridPoint {
-        GridPoint {
-            x,
-            y,
-            key,
-        }
+        GridPoint { x, y, key }
     }
 
     pub fn distance_to(&self, g: &GridPoint) -> f64 {
-        let a = (self.x - g.x).abs();
-        let b = (self.y - g.y).abs();
-        let c: f64 = (a.pow(2) + b.pow(2)).into();
-        c.sqrt()
+        ((self.x - g.x).abs().pow(2) + (self.y - g.y).abs().pow(2)) as f64
     }
 
     pub fn distance(g1: &GridPoint, g2: &GridPoint) -> f64 {
