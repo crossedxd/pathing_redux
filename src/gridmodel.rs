@@ -11,9 +11,9 @@ pub struct GridModel {
 impl GridModel {
     pub fn new(width: usize, height: usize) -> GridModel {
         let mut grid = Vec::new();
-        for x in 0..height {
+        for y in 0..height {
             let mut row = Vec::new();
-            for y in 0..width {
+            for x in 0..width {
                 row.push(GridPoint::new(x as i32, y as i32, 'p'));
             }
             grid.push(row);
@@ -24,9 +24,9 @@ impl GridModel {
     pub fn from_string(path: String, width: usize, height: usize) -> GridModel {
         let mut chars = path.chars();
         let mut grid = Vec::new();
-        for x in 0..height {
+        for y in 0..height {
             let mut row = Vec::new();
-            for y in 0..width {
+            for x in 0..width {
                 // Note: currently assumes that len(path)==width*height
                 match chars.next() {
                     Some(c) => row.push(GridPoint::new(x as i32, y as i32, c)),
@@ -39,7 +39,7 @@ impl GridModel {
     }
 
     pub fn get_point(&self, x: usize, y: usize) -> &GridPoint {
-        &self.grid[x][y]
+        &self.grid[y][x]
     }
 
     pub fn get_neighbors(&self, current: &GridPoint) -> Vec<&GridPoint> {

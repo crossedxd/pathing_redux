@@ -20,115 +20,6 @@ fn main() {
         }
         println!("");
     } */
-    let maze_path = concat!(
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppaaaaaaaaaaaaaaaaaaaappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppappppppppppppppppppappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapaaaaaaaaaaaaaaaapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapappppppppppppppapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapaaaaaaaaaaaapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapappppppppppapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapapaaaaaaaapapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapapappppppapapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapapapaaaapapapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapapapaaaapapapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppapppapppaapppapppappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapapapaaaapapapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapapapaaaapapapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapapappppppapapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapapaaaaaaaapapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapappppppppppapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapapaaaaaaaaaaaapapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapappppppppppppppapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppapaaaaaaaaaaaaaaaapappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppappppppppppppppppppappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppaaaaaaaaaaaaaaaaaaaappppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp",
-        "pppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppppp");
-    let mut grid = GridModel::from_string(maze_path.to_string(), 100, 100);
-    let mut start = *grid.get_point(0, 0);
-    let mut goal = *grid.get_point(25, 25);
-    let path = Pathfinding::a_star(start, goal, grid);
-    grid = GridModel::from_string(maze_path.to_string(), 100, 100);
-    Pathfinding::print_route(grid, path);
-
-
 
     /* println!("Path: {}", path.len());
     for point in path {
@@ -166,6 +57,29 @@ fn main() {
     let path = Pathfinding::a_star(start, goal, grid);
     grid = GridModel::from_string(no_solution_path.to_string(), 16, 16);
     Pathfinding::print_route(grid, path); */
+    let position_testing_path = concat!(
+        "aaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbb",
+        "cccccccccccccccc",
+        "dddddddddddddddd",
+        "eeeeeeeeeeeeeeee",
+        "ffffffffffffffff",
+        "gggggggggggggggg",
+        "hhhhhhhhhhhhhhhh",
+        "iiiiiiiiiiiiiiii",
+        "jjjjjjjjjjjjjjjj",
+        "kkkkkkkkkkkkkkkk",
+        "llllllllllllllll",
+        "mmmmmmmmmmmmmmmm",
+        "nnnnnnnnnnnnnnnn",
+        "oooooooooooooooo",
+        "pppppppppppppppp");
+    let mut grid = GridModel::from_string(position_testing_path.to_string(), 16, 16);
+    let mut start = *grid.get_point(1, 1);
+    let mut goal = *grid.get_point(9, 7);
+    let path = Pathfinding::a_star(start, goal, grid);
+    grid = GridModel::from_string(position_testing_path.to_string(), 16, 16);
+    Pathfinding::print_route(grid, path);
 }
 
 
@@ -298,8 +212,8 @@ impl Pathfinding {
 
     pub fn print_route(grid:GridModel, path: Vec<GridPoint>) {
         let mut steps = vec![];
-        for x in 0..grid.height {
-            for y in 0..grid.width {
+        for y in 0..grid.height {
+            for x in 0..grid.width {
                 let mut display = grid.get_point(x, y).key;
                 for point in &path {
                     if point.x as usize == x && point.y as usize == y {
