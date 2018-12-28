@@ -28,7 +28,10 @@ impl GridModel {
             let mut row = Vec::new();
             for y in 0..width {
                 // Note: currently assumes that len(path)==width*height
-                row.push(GridPoint::new(x as i32, y as i32, chars.next().unwrap()));
+                match chars.next() {
+                    Some(c) => row.push(GridPoint::new(x as i32, y as i32, c)),
+                    None => {},
+                }
             }
             grid.push(row);
         }
@@ -58,23 +61,5 @@ impl GridModel {
         }
 
         neighbors
-
-
-        /* // TODO this should be re-implemented with Options and .unwrap_or() operations
-        let mut neighbors = Vec::new();
-        if current.x > 0 {
-            neighbors.push(self.get_point((current.x - 1) as usize, current.y as usize));
-        }
-        if current.x < self.height as i32 {
-            neighbors.push(self.get_point((current.x + 1) as usize, current.y as usize));
-        }
-        if current.y > 0 {
-            neighbors.push(self.get_point(current.x as usize, (current.y - 1) as usize));
-        }
-        if current.y < self.width as i32 {
-            neighbors.push(self.get_point(current.x as usize, (current.y + 1) as usize));
-        }
-
-        neighbors */
     }
 }
