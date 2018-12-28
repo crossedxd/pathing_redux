@@ -13,73 +13,7 @@ use gridpoint::GridPoint;
 use gridmodel::GridModel;
 
 fn main() {
-    /* let mut grid = GridModel::new(5, 5);
-    for x in 0..5 {
-        for y in 0..5 {
-            print!("{}", grid.get_point(x, y).key);
-        }
-        println!("");
-    } */
-
-    /* println!("Path: {}", path.len());
-    for point in path {
-        println!("{:?}", point);
-    } */
-
-    //let mut map: HashMap<GridPoint, f64> = HashMap::new();
-    //map.insert(start, 0.0);
-    //let mut start2 = GridPoint::new(0, 0, 'p');
-    //map.remove(&start2);
-    //println!("{:?}", map);
-
-
-    /* let no_solution_path = concat!(
-        "aaaaaaaaaaaaaaaa",
-        "aeeeeeeeeeeeeeca",
-        "aaaaaaaaaaaaaaca",
-        "aeeeeeeeeeeecaca",
-        "abaaaaaaaaaacaca",
-        "abaeeeeeeecacaca",
-        "ababaaaaaacacaca",
-        "ababaeeecacacaca",
-        "abababaacacacaca",
-        "abababaddacacaca",
-        "abababaaaacacaca",
-        "abababdddddacaca",
-        "ababaaaaaaaacaca",
-        "ababdddddddddaca",
-        "abaaaaaaaaaaaaca",
-        "abddddddddddddda",
-        "aaaaaaaaaaaaaaaa");
-    let mut grid = GridModel::from_string(no_solution_path.to_string(), 16, 16);
-    let mut start = *grid.get_point(1, 1);
-    let mut goal = *grid.get_point(9, 7);
-    let path = Pathfinding::a_star(start, goal, grid);
-    grid = GridModel::from_string(no_solution_path.to_string(), 16, 16);
-    Pathfinding::print_route(grid, path); */
-    let position_testing_path = concat!(
-        "aaaaaaaaaaaaaaaa",
-        "bbbbbbbbbbbbbbbb",
-        "cccccccccccccccc",
-        "dddddddddddddddd",
-        "eeeeeeeeeeeeeeee",
-        "ffffffffffffffff",
-        "gggggggggggggggg",
-        "hhhhhhhhhhhhhhhh",
-        "iiiiiiiiiiiiiiii",
-        "jjjjjjjjjjjjjjjj",
-        "kkkkkkkkkkkkkkkk",
-        "llllllllllllllll",
-        "mmmmmmmmmmmmmmmm",
-        "nnnnnnnnnnnnnnnn",
-        "oooooooooooooooo",
-        "pppppppppppppppp");
-    let mut grid = GridModel::from_string(position_testing_path.to_string(), 16, 16);
-    let mut start = *grid.get_point(1, 1);
-    let mut goal = *grid.get_point(9, 7);
-    let path = Pathfinding::a_star(start, goal, grid);
-    grid = GridModel::from_string(position_testing_path.to_string(), 16, 16);
-    Pathfinding::print_route(grid, path);
+    
 }
 
 
@@ -100,44 +34,19 @@ impl Pathfinding {
     pub fn a_star(start: GridPoint, goal: GridPoint, grid: GridModel) -> Vec<GridPoint> {
         // TODO right now a_star() consumes the grid; fix that
         let mut closed_set: HashSet<GridPoint> = HashSet::new();
-
         let mut open_set: HashSet<GridPoint> = HashSet::new();
-        open_set.insert(start);
-
         let mut came_from: HashMap<GridPoint, GridPoint> = HashMap::new();
-
         let mut g_score: HashMap<GridPoint, f64> = HashMap::new();
-        g_score.insert(start, 0.0);
-
         let mut f_score: HashMap<GridPoint, f64> = HashMap::new();
+
+        open_set.insert(start);
+        g_score.insert(start, 0.0);
         f_score.insert(start, Pathfinding::heuristic_cost_estimate(&start, &goal));
 
-        //let mut i = 0;
         while !open_set.is_empty() {
             let current = Pathfinding::get_lowest_fscore(&f_score);
 
-            /* if i > 500 {
-                break;
-            } else {
-            }
-                println!("Iteration: {}", i);
-                println!("Current:");
-                println!("{:?}", current);
-                println!("Closed Set: {}", closed_set.len());
-                println!("{:?}", closed_set);
-                println!("Open Set: {}", open_set.len());
-                println!("{:?}", open_set);
-                println!("Came From: {}", came_from.len());
-                println!("{:?}", came_from);
-                println!("F Score: {}", f_score.len());
-                println!("{:?}", f_score);
-                println!("G Score: {}", g_score.len());
-                println!("{:?}", g_score);
-                println!(""); */
-
-
             if current == goal {
-                //println!("Found path somehow");
                 return Pathfinding::reconstruct_path(came_from, current)
             }
             open_set.remove(&current);
@@ -161,7 +70,6 @@ impl Pathfinding {
                 g_score.insert(*neighbor, tentative_g_score);
                 f_score.insert(*neighbor, tentative_g_score + Pathfinding::heuristic_cost_estimate(neighbor, &goal));
             }
-            //i += 1;
         }
 
         if came_from.len() > 0 {
@@ -173,8 +81,6 @@ impl Pathfinding {
             return Pathfinding::reconstruct_path(came_from, closest);
         }
 
-        // We should never get here, but if no solution was found we'll return an empty list
-        //println!("No path found, rip");
         Vec::new()
     }
 
@@ -291,5 +197,58 @@ pub fn test_generate_random_grid_with_longest_path() {
         let path = Pathfinding::a_star(start, goal, grid);
     println!("Random grid with solution ({},{} -> {},{}) with longest path of {} steps ({} iterations):", start.x, start.y, goal.x, goal.y, path.len(), iterations);
     grid = GridModel::from_string(longest_path.to_string(), 100, 100);
+    Pathfinding::print_route(grid, path);
+}
+
+pub fn test_row_positioning() {
+    let position_testing_path = concat!(
+        "aaaaaaaaaaaaaaaa",
+        "bbbbbbbbbbbbbbbb",
+        "cccccccccccccccc",
+        "dddddddddddddddd",
+        "eeeeeeeeeeeeeeee",
+        "ffffffffffffffff",
+        "gggggggggggggggg",
+        "hhhhhhhhhhhhhhhh",
+        "iiiiiiiiiiiiiiii",
+        "jjjjjjjjjjjjjjjj",
+        "kkkkkkkkkkkkkkkk",
+        "llllllllllllllll",
+        "mmmmmmmmmmmmmmmm",
+        "nnnnnnnnnnnnnnnn",
+        "oooooooooooooooo",
+        "pppppppppppppppp");
+    let mut grid = GridModel::from_string(position_testing_path.to_string(), 16, 16);
+    let mut start = *grid.get_point(1, 1);
+    let mut goal = *grid.get_point(9, 7);
+    let path = Pathfinding::a_star(start, goal, grid);
+    grid = GridModel::from_string(position_testing_path.to_string(), 16, 16);
+    Pathfinding::print_route(grid, path);
+}
+
+pub fn test_small_no_solution_path() {
+    let no_solution_path = concat!(
+        "aaaaaaaaaaaaaaaa",
+        "aeeeeeeeeeeeeeca",
+        "aaaaaaaaaaaaaaca",
+        "aeeeeeeeeeeecaca",
+        "abaaaaaaaaaacaca",
+        "abaeeeeeeecacaca",
+        "ababaaaaaacacaca",
+        "ababaeeecacacaca",
+        "abababaacacacaca",
+        "abababaddacacaca",
+        "abababaaaacacaca",
+        "abababdddddacaca",
+        "ababaaaaaaaacaca",
+        "ababdddddddddaca",
+        "abaaaaaaaaaaaaca",
+        "abddddddddddddda",
+        "aaaaaaaaaaaaaaaa");
+    let mut grid = GridModel::from_string(no_solution_path.to_string(), 16, 16);
+    let mut start = *grid.get_point(1, 1);
+    let mut goal = *grid.get_point(9, 7);
+    let path = Pathfinding::a_star(start, goal, grid);
+    grid = GridModel::from_string(no_solution_path.to_string(), 16, 16);
     Pathfinding::print_route(grid, path);
 }
