@@ -22,15 +22,12 @@ impl Vector2 {
     pub fn vectors_from_key(key: char) -> Vec<Vector2> {
         match key {
             'a' => vec![],
-               /*  Vector2::vectors("up"), Vector2::vectors("right"),
-                Vector2::vectors("down"), Vector2::vectors("left")
-                ], */
             'b' => vec![Vector2::vectors("up")],
             'c' => vec![Vector2::vectors("down")],
             'd' => vec![Vector2::vectors("left")],
             'e' => vec![Vector2::vectors("right")],
             'f' => vec![Vector2::vectors("up"), Vector2::vectors("left")],
-            'g' => vec![Vector2::vectors("up"), Vector2::vectors("rigth")],
+            'g' => vec![Vector2::vectors("up"), Vector2::vectors("right")],
             'h' => vec![Vector2::vectors("up"), Vector2::vectors("down")],
             'i' => vec![Vector2::vectors("down"), Vector2::vectors("left")],
             'j' => vec![Vector2::vectors("down"), Vector2::vectors("right")],
