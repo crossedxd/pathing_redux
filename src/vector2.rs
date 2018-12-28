@@ -11,10 +11,10 @@ impl Vector2 {
 
     pub fn vectors(direction: &str) -> Vector2 {
         match direction {
-            "right" => Vector2 { x: 0, y: 1 },
-            "down" => Vector2 { x: 1, y: 0 },
-            "left" => Vector2 { x: 0, y: -1 },
-            "up" => Vector2 { x: -1, y: 0 },
+            "right" => Vector2 { x: 1, y: 0 },
+            "down" => Vector2 { x: 0, y: 1 },
+            "left" => Vector2 { x: -1, y: 0 },
+            "up" => Vector2 { x: 0, y: -1 },
             _ => Vector2 { x: 0, y: 0 },
         }
     }
