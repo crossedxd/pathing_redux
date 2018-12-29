@@ -4,6 +4,7 @@ pub struct Vector2 {
     pub y: i32,
 }
 
+#[allow(dead_code)]
 impl Vector2 {
     pub fn new(x: i32, y: i32) -> Vector2 {
         Vector2 { x: x, y: y }
