@@ -99,43 +99,4 @@ impl Pathfinding {
     pub fn heuristic_cost_estimate(current: &GridPoint, goal: &GridPoint) -> f64 {
         current.manhattan_distance_to(goal)
     }
-
-    pub fn print_route(grid:GridModel, path: Vec<GridPoint>) {
-        //let mut steps = vec![];
-        /* for y in 0..grid.height {
-            for x in 0..grid.width {
-                print!("{}", grid.get_point(x, y).key);
-            }
-            println!("");
-        }
-        println!(""); */
-        for y in 0..grid.height {
-            for x in 0..grid.width {
-                let mut display = grid.get_point(x, y).key;
-                for point in &path {
-                    if point.x as usize == x && point.y as usize == y {
-                        display = ' ';
-                        //steps.push(point.key);
-                        break;
-                    }
-                }
-                print!("{}", display);
-            }
-            println!("");
-        }
-        print!("Path ({}):", path.len());
-        let mut steps = path.clone();
-        steps.reverse();
-        for step in steps {
-            print!("{}", step.key);
-        }
-        println!("");
-        print!("Full route:");
-        for y in 0..grid.height {
-            for x in 0..grid.width {
-                print!("{}", grid.get_point(x, y).key);
-            }
-        }
-        println!("");
-    }
 }
