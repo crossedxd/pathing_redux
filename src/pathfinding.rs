@@ -83,7 +83,6 @@ impl Pathfinding {
     }
 
     pub fn get_lowest_fscore(scores: &HashMap<GridPoint, f64>) ->  GridPoint {
-        // Defaulting to a generic GridPoint, not sure how that plays out
         let mut lowest_node: GridPoint = GridPoint::new(0, 0, 'p');
         let mut lowest_score: f64 = INFINITY;
         for score in scores {
