@@ -19,7 +19,7 @@ impl Pathfinding {
         total_path
     }
 
-    pub fn a_star(start: GridPoint, goal: GridPoint, grid: GridModel) -> Vec<GridPoint> {
+    pub fn a_star(start: GridPoint, goal: GridPoint, grid: GridModel, accept_closest: bool) -> Vec<GridPoint> {
         // TODO right now a_star() consumes the grid; fix that
         let mut closed_set: HashSet<GridPoint> = HashSet::new();
         let mut open_set: HashSet<GridPoint> = HashSet::new();
@@ -60,30 +60,26 @@ impl Pathfinding {
             }
         }
 
-        /* if came_from.len() > 0 {
+        if came_from.len() > 0 && accept_closest {
             let closest = Pathfinding::get_closest(&start, &goal, &came_from);
-
-            for pair in &came_from {
-                println!("{:#?}", pair);
-            }
             return Pathfinding::reconstruct_path(came_from, closest);
-        } */
+        }
 
         Vec::new()
     }
 
     pub fn get_closest(start: &GridPoint, goal: &GridPoint, came_from: &HashMap<GridPoint, GridPoint>) -> GridPoint {
-        let mut nearest = *start;
-        let mut nearest_distance = nearest.manhattan_distance_to(goal);
+        let mut closest = *start;
+        let mut closest_distance = closest.manhattan_distance_to(goal);
         for point in came_from.values() {
             let distance = point.manhattan_distance_to(goal);
-            if distance < nearest_distance {
-                nearest = *point;
-                nearest_distance = distance;
+            if distance < closest_distance {
+                closest = *point;
+                closest_distance = distance;
             }
         }
 
-        nearest
+        closest
     }
 
     pub fn get_lowest_fscore(scores: &HashMap<GridPoint, f64>) ->  GridPoint {
