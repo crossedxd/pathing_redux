@@ -3,145 +3,17 @@ extern crate rand;
 mod vector2;
 mod gridpoint;
 mod gridmodel;
+mod pathfinding;
 
-use std::collections::HashMap;
-use std::collections::HashSet;
 use std::f64::INFINITY;
 use rand::Rng;
 
-use gridpoint::GridPoint;
 use gridmodel::GridModel;
+use pathfinding::Pathfinding;
 
 fn main() {
-    
+    test_generate_random_grid_with_longest_path_indefinitely();
 }
-
-
-pub struct Pathfinding {
-
-}
-
-impl Pathfinding {
-    pub fn reconstruct_path(came_from: HashMap<GridPoint, GridPoint>, mut current: GridPoint) -> Vec<GridPoint> {
-        let mut total_path = vec![current];
-        while came_from.contains_key(&current) {
-            current = *came_from.get(&current).unwrap();
-            total_path.push(current);
-        }
-        total_path
-    }
-
-    pub fn a_star(start: GridPoint, goal: GridPoint, grid: GridModel) -> Vec<GridPoint> {
-        // TODO right now a_star() consumes the grid; fix that
-        let mut closed_set: HashSet<GridPoint> = HashSet::new();
-        let mut open_set: HashSet<GridPoint> = HashSet::new();
-        let mut came_from: HashMap<GridPoint, GridPoint> = HashMap::new();
-        let mut g_score: HashMap<GridPoint, f64> = HashMap::new();
-        let mut f_score: HashMap<GridPoint, f64> = HashMap::new();
-
-        open_set.insert(start);
-        g_score.insert(start, 0.0);
-        f_score.insert(start, Pathfinding::heuristic_cost_estimate(&start, &goal));
-
-        while !open_set.is_empty() {
-            let current = Pathfinding::get_lowest_fscore(&f_score);
-
-            if current == goal {
-                return Pathfinding::reconstruct_path(came_from, current)
-            }
-            open_set.remove(&current);
-            f_score.remove(&current);
-            closed_set.insert(current);
-
-            for neighbor in grid.get_neighbors(&current) {
-                if closed_set.contains(neighbor) {
-                    continue
-                }
-
-                let mut tentative_g_score = g_score.get(neighbor).unwrap_or(&0.0) + current.manhattan_distance_to(neighbor);
-
-                if !open_set.contains(neighbor) {
-                    open_set.insert(*neighbor);
-                } else if tentative_g_score >= *g_score.get(neighbor).unwrap() {
-                    continue
-                }
-
-                came_from.insert(*neighbor, current);
-                g_score.insert(*neighbor, tentative_g_score);
-                f_score.insert(*neighbor, tentative_g_score + Pathfinding::heuristic_cost_estimate(neighbor, &goal));
-            }
-        }
-
-        if came_from.len() > 0 {
-            let closest = Pathfinding::get_closest(&start, &goal, &came_from);
-
-            for pair in &came_from {
-                println!("{:#?}", pair);
-            }
-            return Pathfinding::reconstruct_path(came_from, closest);
-        }
-
-        Vec::new()
-    }
-
-    pub fn get_closest(start: &GridPoint, goal: &GridPoint, came_from: &HashMap<GridPoint, GridPoint>) -> GridPoint {
-        let mut nearest = *start;
-        let mut nearest_distance = nearest.manhattan_distance_to(goal);
-        for point in came_from.values() {
-            let distance = point.manhattan_distance_to(goal);
-            if distance < nearest_distance {
-                nearest = *point;
-                nearest_distance = distance;
-            }
-        }
-
-        nearest
-    }
-
-    pub fn get_lowest_fscore(scores: &HashMap<GridPoint, f64>) ->  GridPoint {
-        // Defaulting to a generic GridPoint, not sure how that plays out
-        let mut lowest_node: GridPoint = GridPoint::new(0, 0, 'p');
-        let mut lowest_score: f64 = INFINITY;
-        for score in scores {
-            if score.1 < &lowest_score {
-                lowest_node = *score.0;
-                lowest_score = *score.1;
-            }
-        }
-
-        lowest_node
-    }
-
-    pub fn heuristic_cost_estimate(current: &GridPoint, goal: &GridPoint) -> f64 {
-        current.manhattan_distance_to(goal)
-    }
-
-    pub fn print_route(grid:GridModel, path: Vec<GridPoint>) {
-        let mut steps = vec![];
-        for y in 0..grid.height {
-            for x in 0..grid.width {
-                let mut display = grid.get_point(x, y).key;
-                for point in &path {
-                    if point.x as usize == x && point.y as usize == y {
-                        display = ' ';
-                        steps.push(point.key);
-                        break;
-                    }
-                }
-                print!("{}", display);
-            }
-            println!("");
-        }
-        print!("Path:");
-        for step in steps {
-            print!("{}", step);
-        }
-        println!("");
-    }
-}
-
-
-
 
 pub fn test_generate_random_grid_with_solution() {
     // This test randomly generates grids until one with a solution is found
@@ -186,7 +58,7 @@ pub fn test_generate_random_grid_with_longest_path() {
         let start = *grid.get_point(20, 20);
         let goal = *grid.get_point(79, 79);
         let path = Pathfinding::a_star(start, goal, grid);
-        if path.len() > 0 && (path.len() as f64) < longest {
+        if path.len() > 0 && (path.len() as f64) > longest {
             longest = path.len() as f64;
             longest_path = random_grid;
         }
@@ -194,10 +66,43 @@ pub fn test_generate_random_grid_with_longest_path() {
     let mut grid = GridModel::from_string(longest_path.to_string(), 100, 100);
     let start = *grid.get_point(20, 20);
     let goal = *grid.get_point(79, 79);
-        let path = Pathfinding::a_star(start, goal, grid);
+    let path = Pathfinding::a_star(start, goal, grid);
     println!("Random grid with solution ({},{} -> {},{}) with longest path of {} steps ({} iterations):", start.x, start.y, goal.x, goal.y, path.len(), iterations);
     grid = GridModel::from_string(longest_path.to_string(), 100, 100);
     Pathfinding::print_route(grid, path);
+}
+
+pub fn test_generate_random_grid_with_longest_path_indefinitely() {
+    let mut generations = 0;
+    // This test randomly generates grids and preserves the one with the longest path, until forced to stop
+    let mut random_grid = String::new();
+    let chars = vec!['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'];
+    let mut longest = 0;
+    let mut longest_path = String::new();
+    while true {
+        generations += 1;
+        random_grid = String::new();
+        for i in 0..10000 {
+            random_grid.push(chars[rand::thread_rng().gen_range(0, chars.len())]);
+        }
+
+        let path_str = random_grid.to_string();
+
+        let mut grid = GridModel::from_string(path_str.clone(), 100, 100);
+        let start = *grid.get_point(20, 20);
+        let goal = *grid.get_point(79, 79);
+        let path = Pathfinding::a_star(start, goal, grid);
+        if path.len() > 0 && path.len() > longest {
+            longest = path.len();
+            longest_path = random_grid;
+            //Print for posterity
+            grid = GridModel::from_string(path_str, 100, 100);
+            Pathfinding::print_route(grid, path);
+        }
+        if generations % 100 == 0 {
+            println!("Generations elapsed: {}", generations);
+        }
+    }
 }
 
 pub fn test_row_positioning() {
@@ -226,8 +131,8 @@ pub fn test_row_positioning() {
     Pathfinding::print_route(grid, path);
 }
 
-pub fn test_small_no_solution_path() {
-    let no_solution_path = concat!(
+pub fn test_small_snake_path() {
+    let small_snake_path = concat!(
         "aaaaaaaaaaaaaaaa",
         "aeeeeeeeeeeeeeca",
         "aaaaaaaaaaaaaaca",
@@ -245,10 +150,10 @@ pub fn test_small_no_solution_path() {
         "abaaaaaaaaaaaaca",
         "abddddddddddddda",
         "aaaaaaaaaaaaaaaa");
-    let mut grid = GridModel::from_string(no_solution_path.to_string(), 16, 16);
+    let mut grid = GridModel::from_string(small_snake_path.to_string(), 16, 17);
     let mut start = *grid.get_point(1, 1);
-    let mut goal = *grid.get_point(9, 7);
+    let mut goal = *grid.get_point(7, 9);
     let path = Pathfinding::a_star(start, goal, grid);
-    grid = GridModel::from_string(no_solution_path.to_string(), 16, 16);
+    grid = GridModel::from_string(small_snake_path.to_string(), 16, 17);
     Pathfinding::print_route(grid, path);
 }
