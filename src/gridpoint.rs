@@ -7,6 +7,7 @@ pub struct GridPoint {
     pub key: char,
 }
 
+#[allow(dead_code)]
 impl GridPoint {
     pub fn new(x: i32, y: i32, key: char) -> GridPoint {
         GridPoint { x, y, key }
@@ -16,16 +17,8 @@ impl GridPoint {
         ((self.x - g.x).abs().pow(2) + (self.y - g.y).abs().pow(2)) as f64
     }
 
-    pub fn distance(g1: &GridPoint, g2: &GridPoint) -> f64 {
-        g1.distance_to(g2)
-    }
-
     pub fn manhattan_distance_to(&self, g: &GridPoint) -> f64 {
         (self.x - g.x).abs() as f64 + (self.y - g.y).abs() as f64
-    }
-
-    pub fn manhattan_distance(g1: &GridPoint, g2: &GridPoint) -> f64 {
-        g1.manhattan_distance_to(g2)
     }
 
     pub fn get_entry_vectors(&self) -> Vec<Vector2> {
