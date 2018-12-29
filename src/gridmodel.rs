@@ -8,6 +8,7 @@ pub struct GridModel {
     // _path: A string of letters representing GridPoints, not currently saved
 }
 
+#[allow(dead_code)]
 impl GridModel {
     pub fn new(width: usize, height: usize) -> GridModel {
         let mut grid = Vec::new();
